@@ -1,0 +1,10 @@
+# gitignore
+
+# Ignore local files
+pond/*
+
+# Ignore local data
+nest/*
+
+# Ignore macOS FS
+.DS_Store
