@@ -1,4 +1,0 @@
-# .ducky/bin/bash_profile
-echo "Activating bash_profile.sh"
-
-source bash_aliases

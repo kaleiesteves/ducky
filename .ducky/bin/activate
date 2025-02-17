@@ -1,6 +1,8 @@
 # This file must be used with "source bin/activate" *from bash*
 # You cannot run it directly
 
+export DUCKY_INSTALL_DIR="$HOME/Workspaces/ducky"
+
 deactivate () {
     # reset old environment variables
     if [ -n "${_OLD_VIRTUAL_PATH:-}" ] ; then
@@ -41,17 +43,17 @@ case "$(uname)" in
     CYGWIN*|MSYS*|MINGW*)
         # transform D:\path\to\venv to /d/path/to/venv on MSYS and MINGW
         # and to /cygdrive/d/path/to/venv on Cygwin
-        VIRTUAL_ENV=$(cygpath /Users/kaleiesteves/Workspaces/ducky/.ducky)
+        VIRTUAL_ENV=$(cygpath $DUCKY_INSTALL_DIR/.ducky)
         export VIRTUAL_ENV
         ;;
     *)
         # use the path as-is
-        export VIRTUAL_ENV=/Users/kaleiesteves/Workspaces/ducky/.ducky
+        export VIRTUAL_ENV=$DUCKY_INSTALL_DIR/.ducky
         ;;
 esac
 
 _OLD_VIRTUAL_PATH="$PATH"
-PATH="$VIRTUAL_ENV/"bin":$PATH"
+PATH="$DUCKY_INSTALL_DIR/bin:$VIRTUAL_ENV/"bin":$PATH"
 export PATH
 
 VIRTUAL_ENV_PROMPT=.ducky
@@ -75,5 +77,7 @@ fi
 # past commands the $PATH changes we made may not be respected
 hash -r 2> /dev/null
 
-export PYTHONPATH="$VIRTUAL_ENV/scripts:$PYTHONPATH"
-source bash_profile
+DUCKY_BIN="$(dirname "$VIRTUAL_ENV")/bin/ducky"
+if [ -f "$DUCKY_BIN" ]; then
+    chmod +x "$DUCKY_BIN"
+fi

@@ -1,6 +1,0 @@
-# .ducky/bin/bash_aliases
-echo "Activating bash_aliases.sh"
-
-SCRIPTS=".ducky/scripts"
-
-alias ducky="python3 $SCRIPTS/ducky.py"
