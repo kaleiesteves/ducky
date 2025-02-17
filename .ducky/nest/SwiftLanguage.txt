@@ -1,0 +1,75 @@
+
+16/02/2025, 5:51 PMT
+he Swift Programming Language (6) | Documentation
+Page 1 of 3https://docs.
+swift.
+org/swift-book/documentation/the-swift-programming-language/Swift.
+org Blog Download Getting Started Documentation
+About SwiftUnderstand the high-level goals of the language.
+Version CompatibilityLearn what functionality is available in older language modes.
+A S
+wift TourExplore the features and syntax of Swift.
+The BasicsWork with common kinds of data and write basic syntax.
+Basic OperatorsPerform operations like assignment, arithmetic, and comparison.
+Strings and CharactersStore and manipulate text.
+Collection TypesOrganize data using arrays, sets, and dictionaries.
+Control FlowStructure code with branches, loops, and early exits.
+FunctionsDeﬁne and call functions, label their arguments, and use their return values.
+ClosuresGroup code that executes together, without creating a named function.
+EnumerationsModel custom types that deﬁne a list of possible values.
+Structures and ClassesModel custom types that encapsulate data.
+
+TopicsWelcome to Swift
+Language GuideThe Swift Programming Language (6)Documentation
+
+16/02/2025, 5:51 PMT
+he Swift Programming Language (6) | Documentation
+Page 2 of 3https://docs.
+swift.
+org/swift-book/documentation/the-swift-programming-language/PropertiesAccess stored and computed values that are part of an instance or type.
+MethodsDeﬁne and call functions that are part of an instance or type.
+SubscriptsAccess the elements of a collection.
+InheritanceSubclass to add or override functionality.
+InitializationSet the initial values for a type’s stored properties and perform one-time setup.
+DeinitializationRelease resources that require custom cleanup.
+Optional ChainingAccess members of an optional value without unwrapping.
+Error HandlingRespond to and recover from errors.
+ConcurrencyPerform asynchronous operations.
+MacrosUse macros to generate code at compile time.
+Type CastingDetermine a value’s runtime type and give it more speciﬁc type information.
+Nested TypesDeﬁne types inside the scope of another type.
+ExtensionsAdd functionality to an existing type.
+ProtocolsDeﬁne requirements that conforming types must implement.
+GenericsWrite code that works for multiple types and specify requirements for those types.
+Opaque and Boxed Protocol TypesHide implementation details about a value’s type.
+Automatic Reference CountingModel the lifetime of objects and their relationships.
+Memory SafetyStructure your code to avoid conﬂicts when accessing memory.
+
+16/02/2025, 5:51 PMT
+he Swift Programming Language (6) | Documentation
+Page 3 of 3https://docs.
+swift.
+org/swift-book/documentation/the-swift-programming-language/Access ControlManage the visibility of code by declaration, ﬁle, and module.
+Advanced OperatorsDeﬁne custom operators, perform bitwise operations, and use builder syntax.
+About the Language ReferenceRead the notation that the formal grammar uses.
+Lexical StructureUse the lowest-level components of the syntax.
+TypesUse built-in named and compound types.
+ExpressionsAccess, modify, and assign values.
+StatementsGroup expressions and control the ﬂow of execution.
+DeclarationsIntroduce types, operators, variables, and other names and constructs.
+AttributesAdd information to declarations and types.
+PatternsMatch and destructure values.
+Generic Parameters and ArgumentsGeneralize declarations to abstract away concrete types.
+Summary of the GrammarRead the whole formal grammar.
+Document Revision HistoryReview the recent changes to this book.
+Copyright © 2014–2023 Apple Inc.
+ and the Swift project authors.
+ All rights reserved.
+This document is made available under a Creative Commons Attribution 4.
+0 International (CC BY 
+4.
+0) License.
+Swift and the Swift logo are trademarks of Apple Inc.
+Privacy Policy CookiesLightDark
+AutoLanguage Reference
+Revision History
