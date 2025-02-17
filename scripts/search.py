@@ -1,14 +1,13 @@
+#!/usr/bin/env python3
 import os
 import sys
-
-# Ducky's directory for plain text files is called 'nest'
-NEST = os.path.abspath(os.path.join(sys.prefix, "../nest"))
+from config import DUCKY_NEST
 
 
 # Get the text from Ducky's nest.
 def get_text(filename):
     filename_txt = os.path.splitext(filename)[0] + ".txt"
-    text = os.path.join(NEST, filename_txt)
+    text = os.path.join(DUCKY_NEST, filename_txt)
     return text
 
 
@@ -57,6 +56,38 @@ def search_text(filename, keywords):
 
     return results
 
+
+# Search the text in each file in the nest
+def search_nest(keywords):
+    if not os.path.exists(DUCKY_NEST):
+        print(f"Error: DUCKY_NEST directory '{DUCKY_NEST}' doesn't exist.")
+        sys.exit(1)
+
+    # Get all the text files in the nest
+    text_files = []
+    for root, _, files in os.walk(DUCKY_NEST):
+        for f in files:
+            if f.endswith(".txt"):
+                text_files.append(os.path.join(root, f))
+    if not text_files:
+        print("\nNo text files found in ducky's nest.")
+        sys.exit(1)
+
+    # Get the results for each search
+    results = {keyword: [] for keyword in keywords}
+    for file_path in text_files:
+        file_name = os.path.basename(file_path)
+        try:
+            # Search the text file and store results
+            file_results = search_text(file_name, keywords)
+            for keyword, matches in file_results.items():
+                results[keyword].extend(matches)
+        except FileNotFoundError:
+            pass
+        except Exception as e:
+            print(f"\nError searching '{file_name}': {e}")
+    return results
+
 # Print the results to the console if found.
 def print_text(results):
     found = False
@@ -78,17 +109,16 @@ def print_text(results):
 
 # CLI execution.
 if __name__ == "__main__":
-    if len(sys.argv) < 3:
-        print("Usage: python3 scripts/search.py <filename> <keyword 1> <keyword 2> ...")
-    filename = sys.argv[1]
-    keywords = sys.argv[2:]
+    if len(sys.argv) < 2:
+        print("Usage: python3 scripts/search.py <keyword 1> <keyword 2> ...")
     try:
-        results = search_text(filename, keywords)
+        keywords = sys.argv[1:]
+        results = search_nest(keywords)
         print_text(results)
     except FileNotFoundError as e:
         print(f"\nFileNotFound exception: {e}")
         sys.exit(2)
     except Exception as e:
-        print(f"\nUnexcepted exception: {e}")
+        print(f"\nUnexcepted exception in search: {e}")
         sys.exit(1)
 

@@ -3,56 +3,64 @@
 import os
 import sys
 import re
-from PyPDF2 import PdfReader
-from config import DUCKY_POND
-from config import DUCKY_NEST
+import pdfplumber
+from config import DUCKY_POND, DUCKY_NEST
 
-# Read the PDF's text and extract to plain text format.
+# Read and extract text from a PDF.
 def read_text(filename):
-    # Retrieve the PDF from Ducky's pond.
     filename_pdf = os.path.join(DUCKY_POND, filename)
-
     if not os.path.exists(filename_pdf):
         raise FileNotFoundError(f"File not found: {filename_pdf}")
+    text = []
+    prev_lines = set() 
+    page_number = 0
+    with pdfplumber.open(filename_pdf) as pdf:
+        for i, page in enumerate(pdf.pages, start=1):
+            extracted = page.extract_text()
+            page_number += 1
+            if extracted:
+                lines = extracted.strip().split("\n")
+                clean_lines = [line for line in lines if line not in prev_lines]
+                prev_lines.update(lines[:3])
+                if clean_lines:
+                    text.append(f"\n".join(clean_lines))
+    return "\n".join(text)
 
-    # Get the PDF to read and create an array for the results.
-    pdf = PdfReader(filename_pdf)
-    result = []
+# Remove duplicate lines and fix spacing.
+import re
 
-    # Loop through each page in the PDF.
-    for page in pdf.pages:
-        text = page.extract_text()
+def clean_text(text):
+    text = re.sub(r'(\w)-\s+(\w)', r'\1\2', text)
+    text = re.sub(r'[\u2022•*▪-]\s*', '\n', text)
+    lines = text.split("\n")
+    fixed_lines = []
+    buffer = []
+    for line in lines:
+        line = line.strip()
+        if line:
+            if buffer and not re.match(r'[.!?]$', buffer[-1]):
+                buffer[-1] += " " + line
+            else:
+                buffer.append(line)
+    seen = set()
+    cleaned_lines = []
+    for line in buffer:
+        line = re.sub(r'(?<=[.])\s*', '\n', line)
+        if line not in seen:
+            seen.add(line)
+            cleaned_lines.append(line)
+    return "\n".join(cleaned_lines)
 
-        # Append the trimmed text to the results array.
-        if text is not None:
-            text = text.replace("?", "?\n")
-            text = text.replace(".", ".\n")
-            text = text.replace("•", "\n")
-            text = text.replace("- ", "\n")
-            text = text.replace("●", "\n")
-            text = text.replace("◦", "\n")
-            text = re.sub(r"([A-Z][A-Z\s]+)", r"\1\n", text)
-            result.append("\n" + text.strip())
-
-    return "\n".join(result)
-
-
-# Save the text in a plain text file.
+# Save the cleaned text to a .txt file.
 def save_text(filename, text):
-    # Create Ducky's Nest if not already.
     if not os.path.exists(DUCKY_NEST):
         os.makedirs(DUCKY_NEST)
-
-    # Create the file and its name.
     filename_txt = os.path.splitext(filename)[0] + ".txt"
     output = os.path.join(DUCKY_NEST, filename_txt)
-
-    # Write the text to the file.
+    cleaned_text = clean_text(text)
     with open(output, "w", encoding="utf-8") as file:
-        file.write(text)
-
+        file.write(cleaned_text)
     print(f"\nText was saved to {output}\n")
-
 
 # CLI execution.
 if __name__ == "__main__":

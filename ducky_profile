@@ -1,6 +1,8 @@
 # ducky/ducky_profile
+
 echo "Activating ducky_profile!"
 
+# Makes the ducky command executable if not. 
 if [ -f "$DUCKY" ]; then
     chmod +x "$DUCKY"
 fi
