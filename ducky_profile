@@ -1,0 +1,6 @@
+# ducky/ducky_profile
+echo "Activating ducky_profile!"
+
+if [ -f "$DUCKY" ]; then
+    chmod +x "$DUCKY"
+fi

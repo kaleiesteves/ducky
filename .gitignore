@@ -1,10 +1,10 @@
 # gitignore
 
 # Ignore local files
-pond/*
+.ducky/pond/*
 
 # Ignore local data
-nest/*
+.ducky/nest/*
 
 # Ignore macOS FS
 .DS_Store

@@ -2,6 +2,7 @@
 # You cannot run it directly
 
 export DUCKY_INSTALL_DIR="$HOME/Workspaces/ducky"
+export DUCKY="$DUCKY_INSTALL_DIR/bin/ducky"
 
 deactivate () {
     # reset old environment variables
@@ -77,7 +78,5 @@ fi
 # past commands the $PATH changes we made may not be respected
 hash -r 2> /dev/null
 
-DUCKY_BIN="$(dirname "$VIRTUAL_ENV")/bin/ducky"
-if [ -f "$DUCKY_BIN" ]; then
-    chmod +x "$DUCKY_BIN"
-fi
+source $DUCKY_INSTALL_DIR/ducky_profile
+
